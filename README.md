@@ -90,7 +90,6 @@ Educa/
 ├── app.py
 ├── config.py
 ├── db.py
-├── course_db.sql
 ├── requirements.txt
 ├── .gitignore
 └── README.md
