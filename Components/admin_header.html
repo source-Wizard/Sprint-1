@@ -1,0 +1,59 @@
+<header class="header">
+   <section class="flex">
+      <a href="{{ url_for('admin.dashboard') }}" class="logo">Admin.</a>
+      <form action="{{ url_for('admin.contents') }}" method="post" class="search-form">
+         <input type="text" name="search" placeholder="search here..." required maxlength="100">
+         <button type="submit" class="fas fa-search"></button>
+      </form>
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <div id="search-btn" class="fas fa-search"></div>
+         <div id="user-btn" class="fas fa-user"></div>
+         <div id="toggle-btn" class="fas fa-sun"></div>
+      </div>
+      <div class="profile">
+         {% if tutor %}
+            <img src="{{ url_for('static', filename='uploaded_files/' ~ tutor.image) }}" alt="">
+            <h3>{{ tutor.name }}</h3>
+            <span>{{ tutor.profession }}</span>
+            <a href="{{ url_for('admin.profile') }}" class="btn">view profile</a>
+            <div class="flex-btn">
+               <a href="{{ url_for('admin.login') }}" class="option-btn">login</a>
+               <a href="{{ url_for('admin.register') }}" class="option-btn">register</a>
+            </div>
+            <a href="{{ url_for('admin.logout') }}" onclick="return confirm('logout from this website?');" class="delete-btn">logout</a>
+         {% else %}
+            <h3>please login or register</h3>
+            <div class="flex-btn">
+               <a href="{{ url_for('admin.login') }}" class="option-btn">login</a>
+               <a href="{{ url_for('admin.register') }}" class="option-btn">register</a>
+            </div>
+         {% endif %}
+      </div>
+   </section>
+</header>
+
+<div class="side-bar">
+   <div class="close-side-bar"><i class="fas fa-times"></i></div>
+   <div class="profile">
+      {% if tutor %}
+         <img src="{{ url_for('static', filename='uploaded_files/' ~ tutor.image) }}" alt="">
+         <h3>{{ tutor.name }}</h3>
+         <span>{{ tutor.profession }}</span>
+         <a href="{{ url_for('admin.profile') }}" class="btn">view profile</a>
+      {% else %}
+         <h3>please login or register</h3>
+         <div class="flex-btn">
+            <a href="{{ url_for('admin.login') }}" class="option-btn">login</a>
+            <a href="{{ url_for('admin.register') }}" class="option-btn">register</a>
+         </div>
+      {% endif %}
+   </div>
+   <nav class="navbar">
+      <a href="{{ url_for('admin.dashboard') }}"><i class="fas fa-home"></i><span>home</span></a>
+      <a href="{{ url_for('admin.playlists') }}"><i class="fas fa-bars-staggered"></i><span>playlists</span></a>
+      <a href="{{ url_for('admin.contents') }}"><i class="fas fa-graduation-cap"></i><span>contents</span></a>
+      <a href="{{ url_for('admin.comments') }}"><i class="fas fa-comment"></i><span>comments</span></a>
+      <a href="{{ url_for('admin.logout') }}" onclick="return confirm('logout from this website?');"><i class="fas fa-right-from-bracket"></i><span>logout</span></a>
+   </nav>
+</div>
