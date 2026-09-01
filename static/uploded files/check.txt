@@ -1,1 +1,1 @@
-
+when you add any record from admin panel then here are video will upload automatically
