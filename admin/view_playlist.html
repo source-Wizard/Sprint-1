@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Playlist Details</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body>
+{% include 'components/admin_header.html' %}
+
+<section class="playlist-details">
+   <h1 class="heading">playlist details</h1>
+   {% if playlist %}
+   <div class="row">
+      <div class="thumb">
+         <span>{{ total_videos }}</span>
+         <img src="{{ url_for('static', filename='uploaded_files/' ~ playlist.thumb) }}" alt="">
+      </div>
+      <div class="details">
+         <h3 class="title">{{ playlist.title }}</h3>
+         <div class="date"><i class="fas fa-calendar"></i><span>{{ playlist.date }}</span></div>
+         <div class="description">{{ playlist.description }}</div>
+         <form action="" method="post" class="flex-btn">
+            <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+            <a href="{{ url_for('admin.update_playlist', get_id=playlist.id) }}" class="option-btn">update playlist</a>
+            <input type="submit" value="delete playlist" class="delete-btn" onclick="return confirm('delete this playlist?');" name="delete">
+         </form>
+      </div>
+   </div>
+   {% else %}
+      <p class="empty">no playlist found!</p>
+   {% endif %}
+</section>
+
+<section class="contents">
+   <h1 class="heading">playlist videos</h1>
+   <div class="box-container">
+      {% if videos %}
+         {% for video in videos %}
+         <div class="box">
+            <div class="flex">
+               <div>
+                  <i class="fas fa-dot-circle" style="color: {{ 'limegreen' if video.status == 'active' else 'red' }};"></i>
+                  <span style="color: {{ 'limegreen' if video.status == 'active' else 'red' }};">{{ video.status }}</span>
+               </div>
+               <div><i class="fas fa-calendar"></i><span>{{ video.date }}</span></div>
+            </div>
+            <img src="{{ url_for('static', filename='uploaded_files/' ~ video.thumb) }}" class="thumb" alt="">
+            <h3 class="title">{{ video.title }}</h3>
+            <form action="" method="post" class="flex-btn">
+               <input type="hidden" name="video_id" value="{{ video.id }}">
+               <a href="{{ url_for('admin.update_content', get_id=video.id) }}" class="option-btn">update</a>
+               <input type="submit" value="delete" class="delete-btn" onclick="return confirm('delete this video?');" name="delete_video">
+            </form>
+            <a href="{{ url_for('admin.view_content', get_id=video.id) }}" class="btn">watch video</a>
+         </div>
+         {% endfor %}
+      {% else %}
+         <p class="empty">no videos added yet! <a href="{{ url_for('admin.add_content') }}" class="btn" style="margin-top: 1.5rem;">add videos</a></p>
+      {% endif %}
+   </div>
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+</body>
+</html>

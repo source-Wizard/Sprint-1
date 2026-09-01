@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Update Playlist</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body>
+{% include 'components/admin_header.html' %}
+
+<section class="playlist-form">
+   <h1 class="heading">update playlist</h1>
+   {% if playlist %}
+   <form action="" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+      <input type="hidden" name="old_image" value="{{ playlist.thumb }}">
+      
+      <p>playlist status <span>*</span></p>
+      <select name="status" class="box" required>
+         <option value="{{ playlist.status }}" selected>{{ playlist.status }}</option>
+         <option value="active">active</option>
+         <option value="deactive">deactive</option>
+      </select>
+      
+      <p>playlist title <span>*</span></p>
+      <input type="text" name="title" maxlength="100" required placeholder="enter playlist title" value="{{ playlist.title }}" class="box">
+      
+      <p>playlist description <span>*</span></p>
+      <textarea name="description" class="box" required placeholder="write description" maxlength="1000" cols="30" rows="10">{{ playlist.description }}</textarea>
+      
+      <p>playlist thumbnail <span>*</span></p>
+      <div class="thumb">
+         <span>{{ total_videos }}</span>
+         <img src="{{ url_for('static', filename='uploaded_files/' ~ playlist.thumb) }}" alt="">
+      </div>
+      <input type="file" name="image" accept="image/*" class="box">
+      
+      <input type="submit" value="update playlist" name="submit" class="btn">
+      <div class="flex-btn">
+         <input type="submit" value="delete" class="delete-btn" onclick="return confirm('delete this playlist?');" name="delete">
+         <a href="{{ url_for('admin.view_playlist', get_id=playlist.id) }}" class="option-btn">view playlist</a>
+      </div>
+   </form>
+   {% else %}
+      <p class="empty">no playlist added yet!</p>
+   {% endif %}
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+</body>
+</html>

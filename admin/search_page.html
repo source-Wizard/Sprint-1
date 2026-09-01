@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Search</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body>
+{% include 'components/admin_header.html' %}
+
+<section class="contents">
+   <h1 class="heading">contents</h1>
+   <div class="box-container">
+      {% if videos %}
+         {% for video in videos %}
+         <div class="box">
+            <div class="flex">
+               <div>
+                  <i class="fas fa-dot-circle" style="color: {{ 'limegreen' if video.status == 'active' else 'red' }};"></i>
+                  <span style="color: {{ 'limegreen' if video.status == 'active' else 'red' }};">{{ video.status }}</span>
+               </div>
+               <div><i class="fas fa-calendar"></i><span>{{ video.date }}</span></div>
+            </div>
+            <img src="{{ url_for('static', filename='uploaded_files/' ~ video.thumb) }}" class="thumb" alt="">
+            <h3 class="title">{{ video.title }}</h3>
+            <form action="{{ url_for('admin.contents') }}" method="post" class="flex-btn">
+               <input type="hidden" name="video_id" value="{{ video.id }}">
+               <a href="{{ url_for('admin.update_content', get_id=video.id) }}" class="option-btn">update</a>
+               <input type="submit" value="delete" class="delete-btn" onclick="return confirm('delete this video?');" name="delete_video">
+            </form>
+            <a href="{{ url_for('admin.view_content', get_id=video.id) }}" class="btn">view content</a>
+         </div>
+         {% endfor %}
+      {% else %}
+         <p class="empty">no contents found!</p>
+      {% endif %}
+   </div>
+</section>
+
+<section class="playlists">
+   <h1 class="heading">playlists</h1>
+   <div class="box-container">
+      {% if playlists %}
+         {% for pl in playlists %}
+         <div class="box">
+            <div class="flex">
+               <div>
+                  <i class="fas fa-circle-dot" style="color: {{ 'limegreen' if pl.status == 'active' else 'red' }};"></i>
+                  <span style="color: {{ 'limegreen' if pl.status == 'active' else 'red' }};">{{ pl.status }}</span>
+               </div>
+               <div><i class="fas fa-calendar"></i><span>{{ pl.date }}</span></div>
+            </div>
+            <div class="thumb">
+               <span>{{ pl.total_videos }}</span>
+               <img src="{{ url_for('static', filename='uploaded_files/' ~ pl.thumb) }}" alt="">
+            </div>
+            <h3 class="title">{{ pl.title }}</h3>
+            <p class="description">{{ pl.description }}</p>
+            <form action="{{ url_for('admin.playlists') }}" method="post" class="flex-btn">
+               <input type="hidden" name="playlist_id" value="{{ pl.id }}">
+               <a href="{{ url_for('admin.update_playlist', get_id=pl.id) }}" class="option-btn">update</a>
+               <input type="submit" value="delete_playlist" class="delete-btn" onclick="return confirm('delete this playlist?');" name="delete">
+            </form>
+            <a href="{{ url_for('admin.view_playlist', get_id=pl.id) }}" class="btn">view playlist</a>
+         </div>
+         {% endfor %}
+      {% else %}
+         <p class="empty">no playlists found!</p>
+      {% endif %}
+   </div>
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+</body>
+</html>

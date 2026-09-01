@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Admin Login</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body style="padding-left: 0;">
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for msg in messages %}
+      <div class="message form">
+         <span>{{ msg }}</span>
+         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+      </div>
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
+<section class="form-container">
+   <form action="" method="post" class="login">
+      <h3>welcome back!</h3>
+      <p>your email <span>*</span></p>
+      <input type="email" name="email" placeholder="enter your email" maxlength="50" required class="box">
+      <p>your password <span>*</span></p>
+      <input type="password" name="pass" placeholder="enter your password" maxlength="20" required class="box">
+      <p class="link">don't have an account? <a href="{{ url_for('admin.register') }}">register new</a></p>
+      <input type="submit" name="submit" value="login now" class="btn">
+   </form>
+</section>
+
+<script>
+let darkMode = localStorage.getItem('dark-mode');
+let body = document.body;
+if(darkMode === 'enabled'){ body.classList.add('dark'); }
+</script>
+</body>
+</html>

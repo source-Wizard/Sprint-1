@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Profile</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body>
+{% include 'components/admin_header.html' %}
+
+<section class="tutor-profile" style="min-height: calc(100vh - 19rem);">
+   <h1 class="heading">profile details</h1>
+   <div class="details">
+      <div class="tutor">
+         <img src="{{ url_for('static', filename='uploaded_files/' ~ tutor.image) }}" alt="">
+         <h3>{{ tutor.name }}</h3>
+         <span>{{ tutor.profession }}</span>
+         <a href="{{ url_for('admin.update_profile') }}" class="inline-btn">update profile</a>
+      </div>
+      <div class="flex">
+         <div class="box">
+            <span>{{ total_playlists }}</span>
+            <p>total playlists</p>
+            <a href="{{ url_for('admin.playlists') }}" class="btn">view playlists</a>
+         </div>
+         <div class="box">
+            <span>{{ total_contents }}</span>
+            <p>total videos</p>
+            <a href="{{ url_for('admin.contents') }}" class="btn">view contents</a>
+         </div>
+         <div class="box">
+            <span>{{ total_likes }}</span>
+            <p>total likes</p>
+            <a href="{{ url_for('admin.contents') }}" class="btn">view contents</a>
+         </div>
+         <div class="box">
+            <span>{{ total_comments }}</span>
+            <p>total comments</p>
+            <a href="{{ url_for('admin.comments') }}" class="btn">view comments</a>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+</body>
+</html>

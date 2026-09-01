@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register Tutor</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body style="padding-left: 0;">
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for msg in messages %}
+      <div class="message form">
+         <span>{{ msg }}</span>
+         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+      </div>
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
+<section class="form-container">
+   <form class="register" action="" method="post" enctype="multipart/form-data">
+      <h3>Register New</h3>
+      <div class="flex">
+         <div class="col">
+            <p>your name <span>*</span></p>
+            <input type="text" name="name" placeholder="enter your name" maxlength="50" required class="box">
+            <p>your profession <span>*</span></p>
+            <select name="profession" class="box" required>
+               <option value="" disabled selected>-- select your profession</option>
+               <option value="developer">developer</option>
+               <option value="designer">designer</option>
+               <option value="musician">musician</option>
+               <option value="biologist">biologist</option>
+               <option value="teacher">teacher</option>
+               <option value="engineer">engineer</option>
+               <option value="lawyer">lawyer</option>
+               <option value="accountant">accountant</option>
+               <option value="doctor">doctor</option>
+               <option value="journalist">journalist</option>
+               <option value="photographer">photographer</option>
+            </select>
+            <p>your email <span>*</span></p>
+            <input type="email" name="email" placeholder="enter your email" maxlength="50" required class="box">
+         </div>
+         <div class="col">
+            <p>your password <span>*</span></p>
+            <input type="password" name="pass" placeholder="enter your password" maxlength="20" required class="box">
+            <p>confirm password <span>*</span></p>
+            <input type="password" name="cpass" placeholder="confirm your password" maxlength="20" required class="box">
+            <p>select pic <span>*</span></p>
+            <input type="file" name="image" accept="image/*" required class="box">
+         </div>
+      </div>
+      <p class="link">already have an account? <a href="{{ url_for('admin.login') }}">login now</a></p>
+      <input type="submit" name="submit" value="Register Now" class="btn">
+   </form>
+</section>
+
+<script>
+let darkMode = localStorage.getItem('dark-mode');
+let body = document.body;
+if(darkMode === 'enabled'){ body.classList.add('dark'); }
+</script>
+</body>
+</html>

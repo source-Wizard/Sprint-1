@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+<body>
+{% include 'components/admin_header.html' %}
+
+<section class="dashboard">
+   <h1 class="heading">dashboard</h1>
+   <div class="box-container">
+      <div class="box">
+         <h3>welcome!</h3>
+         <p>{{ tutor.name }}</p>
+         <a href="{{ url_for('admin.profile') }}" class="btn">view profile</a>
+      </div>
+      <div class="box">
+         <h3>{{ total_contents }}</h3>
+         <p>total contents</p>
+         <a href="{{ url_for('admin.add_content') }}" class="btn">add new content</a>
+      </div>
+      <div class="box">
+         <h3>{{ total_playlists }}</h3>
+         <p>total playlists</p>
+         <a href="{{ url_for('admin.add_playlist') }}" class="btn">add new playlist</a>
+      </div>
+      <div class="box">
+         <h3>{{ total_likes }}</h3>
+         <p>total likes</p>
+         <a href="{{ url_for('admin.contents') }}" class="btn">view contents</a>
+      </div>
+      <div class="box">
+         <h3>{{ total_comments }}</h3>
+         <p>total comments</p>
+         <a href="{{ url_for('admin.comments') }}" class="btn">view comments</a>
+      </div>
+      <div class="box">
+         <h3>quick select</h3>
+         <p>login or register</p>
+         <div class="flex-btn">
+            <a href="{{ url_for('admin.login') }}" class="option-btn">login</a>
+            <a href="{{ url_for('admin.register') }}" class="option-btn">register</a>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% include 'components/footer.html' %}
+<script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+</body>
+</html>
